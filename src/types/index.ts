@@ -3,8 +3,24 @@ export type BookingStatus = 'pending' | 'confirmed' | 'cancelled' | 'completed'
 export type SubscriptionPlan = 'free' | 'basic' | 'pro'
 
 export interface Profile {
-  id: string; full_name: string; phone?: string; avatar_url?: string
-  role: Role; village?: string; created_at: string; updated_at: string
+  id: string
+  full_name: string
+  phone?: string
+  second_phone?: string
+  email?: string
+  avatar_url?: string
+  role: Role
+  village?: string
+  gender?: string
+  birth_date?: string
+  national_id?: string
+  id_front_url?: string
+  id_back_url?: string
+  identity_verified: boolean
+  identity_verified_at?: string
+  is_active: boolean
+  created_at: string
+  updated_at: string
 }
 
 export interface Category {
@@ -19,9 +35,19 @@ export interface Provider {
   is_available: boolean; is_verified: boolean; subscription_plan: SubscriptionPlan
   subscription_ends_at?: string; rating: number; reviews_count: number
   views_count: number; tags?: string[]; images?: string[]
+  national_id?: string
+  id_front_url?: string
+  id_back_url?: string
+  intro_video_url?: string
+  certificates?: string[]
+  years_experience?: number
+  gender?: string
+  birth_date?: string
+  identity_verified: boolean
+  identity_verified_at?: string
   lat?: number; lng?: number; created_at: string; updated_at: string
   category?: Category
-  profile?: Pick<Profile, 'full_name' | 'avatar_url'>
+  profile?: Pick<Profile, 'full_name' | 'avatar_url' | 'phone'>
 }
 
 export interface Booking {
