@@ -2,52 +2,115 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap');
-
 @layer base {
   :root {
-    --brand: #0d9262;
-    --brand-dark: #0c7551;
+    --brand: #16b378;
+    --brand-dark: #0d9262;
+    --brand-darker: #0c7551;
     --brand-light: #edfdf6;
     --surface: #f8faf9;
     --border: #e5ebe8;
+
+    /* brand palette as CSS variables */
+    --brand-50: #edfdf6;
+    --brand-100: #d2f9e8;
+    --brand-200: #a9f1d2;
+    --brand-300: #71e4b5;
+    --brand-400: #38ce93;
+    --brand-500: #16b378;
+    --brand-600: #0d9262;
+    --brand-700: #0c7551;
+    --brand-800: #0d5d41;
+    --brand-900: #0c4d37;
+    --brand-950: #052b1f;
   }
-  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
   body {
-    font-family: 'Cairo', sans-serif;
+    font-family: var(--font-cairo, 'Cairo'), sans-serif;
     direction: rtl;
     background: var(--surface);
     color: #111827;
     -webkit-font-smoothing: antialiased;
   }
+
+  /* RTL flip utility for directional icons */
+  [dir='rtl'] .rtl-flip {
+    transform: scaleX(-1);
+  }
 }
 
 @layer components {
-  .btn { @apply inline-flex items-center justify-center gap-2 font-semibold transition-all duration-150 active:scale-[0.97] disabled:opacity-50 disabled:cursor-not-allowed select-none; }
-  .btn-primary { @apply btn w-full py-3.5 px-6 rounded-2xl bg-brand-600 text-white text-sm hover:bg-brand-700 shadow-sm; }
-  .btn-outline { @apply btn w-full py-3.5 px-6 rounded-2xl border-2 border-brand-600 text-brand-600 text-sm hover:bg-brand-50; }
-  .btn-whatsapp { @apply btn w-full py-3.5 px-6 rounded-2xl bg-[#25D366] text-white text-sm hover:bg-[#1ebe5d]; }
-  .btn-danger { @apply btn w-full py-3.5 px-6 rounded-2xl bg-red-50 text-red-600 text-sm hover:bg-red-100 border border-red-100; }
-  .card { @apply bg-white rounded-2xl border border-gray-100 shadow-sm; }
-  .card-p { @apply card p-4; }
-  .input { @apply w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm placeholder-gray-400 text-right focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all; }
-  .label { @apply block text-sm font-medium text-gray-700 mb-1.5; }
-  .badge { @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium; }
-  .badge-available { @apply badge bg-emerald-100 text-emerald-700; }
-  .badge-busy { @apply badge bg-gray-100 text-gray-500; }
-  .badge-pending { @apply badge bg-amber-100 text-amber-700; }
-  .badge-confirmed { @apply badge bg-blue-100 text-blue-700; }
-  .badge-completed { @apply badge bg-green-100 text-green-700; }
-  .badge-cancelled { @apply badge bg-red-100 text-red-600; }
-  .error-box { @apply bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm text-center; }
-  .success-box { @apply bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-3 rounded-xl text-sm text-center; }
-  .skeleton { @apply bg-gray-200 animate-pulse rounded-xl; }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 font-semibold transition-all duration-150 active:scale-[0.97] disabled:opacity-50 disabled:cursor-not-allowed select-none;
+  }
+  .btn-primary {
+    @apply btn w-full py-3.5 px-6 rounded-2xl bg-brand-600 text-white text-sm hover:bg-brand-700 shadow-sm;
+  }
+  .btn-outline {
+    @apply btn w-full py-3.5 px-6 rounded-2xl border-2 border-brand-600 text-brand-600 text-sm hover:bg-brand-50;
+  }
+  .btn-whatsapp {
+    @apply btn w-full py-3.5 px-6 rounded-2xl bg-[#25D366] text-white text-sm hover:bg-[#1ebe5d];
+  }
+  .btn-danger {
+    @apply btn w-full py-3.5 px-6 rounded-2xl bg-red-50 text-red-600 text-sm hover:bg-red-100 border border-red-100;
+  }
+  .card {
+    @apply bg-white rounded-2xl border border-gray-100 shadow-sm;
+  }
+  .card-p {
+    @apply card p-4;
+  }
+  .input {
+    @apply w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm placeholder-gray-400 text-right focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all;
+  }
+  .label {
+    @apply block text-sm font-medium text-gray-700 mb-1.5;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium;
+  }
+  .badge-available {
+    @apply badge bg-emerald-100 text-emerald-700;
+  }
+  .badge-busy {
+    @apply badge bg-gray-100 text-gray-500;
+  }
+  .badge-pending {
+    @apply badge bg-amber-100 text-amber-700;
+  }
+  .badge-confirmed {
+    @apply badge bg-blue-100 text-blue-700;
+  }
+  .badge-completed {
+    @apply badge bg-green-100 text-green-700;
+  }
+  .badge-cancelled {
+    @apply badge bg-red-100 text-red-600;
+  }
+  .error-box {
+    @apply bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm text-center;
+  }
+  .success-box {
+    @apply bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-3 rounded-xl text-sm text-center;
+  }
+  .skeleton {
+    @apply bg-gray-200 animate-pulse rounded-xl;
+  }
 }
 
+/* Scrollbar */
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Safe area */
 .pb-nav { padding-bottom: calc(4rem + max(0.5rem, env(safe-area-inset-bottom))); }
 .safe-area-bottom { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }

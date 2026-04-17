@@ -1,6 +1,6 @@
-'use client'
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
+
 import { Home, Search, CalendarDays, User } from 'lucide-react'
 
 const NAV = [

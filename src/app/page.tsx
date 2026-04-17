@@ -1,5 +1,5 @@
-'use client'
 import Link from 'next/link'
+
 import { Search, Briefcase, MapPin, Star, Users, Shield, Zap } from 'lucide-react'
 
 export default function LandingPage() {

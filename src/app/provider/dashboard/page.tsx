@@ -1,12 +1,14 @@
-'use client'
 import { useEffect, useState } from 'react'
+
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+
+import { LayoutDashboard, CalendarDays, Settings, Eye, Loader2, CheckCircle2, XCircle, Star, TrendingUp, Users, ToggleLeft, ToggleRight } from 'lucide-react'
+
 import { createClient } from '@/lib/supabase/client'
 import { getProviderByUserId, getProviderBookings, updateBookingStatus, toggleAvailability } from '@/lib/api'
-import type { Provider, Booking } from '@/types'
-import { LayoutDashboard, CalendarDays, Settings, Eye, Loader2, CheckCircle2, XCircle, Star, TrendingUp, Users, ToggleLeft, ToggleRight } from 'lucide-react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { STATUS_LABELS, formatDate, formatTime } from '@/utils'
+import type { Provider, Booking } from '@/types'
 
 type Tab = 'home'|'bookings'|'settings'
 

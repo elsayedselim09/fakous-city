@@ -1,11 +1,14 @@
-'use client'
 import { useState, Suspense, useRef } from 'react'
+
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+
+import { Loader2, MapPin, Camera, Upload, ShieldCheck, Eye, EyeOff } from 'lucide-react'
+
 import { createClient } from '@/lib/supabase/client'
 import { uploadAvatar, uploadIdCard } from '@/lib/storage'
-import { Loader2, MapPin, Camera, Upload, ShieldCheck, Eye, EyeOff } from 'lucide-react'
 import { VILLAGES } from '@/utils'
+import { PreviewImage } from '@/components/ui/PreviewImage'
 
 function Form() {
   const router = useRouter()
@@ -152,7 +155,7 @@ function Form() {
                 className="w-24 h-24 rounded-full border-2 border-dashed border-brand-300 flex items-center justify-center cursor-pointer overflow-hidden bg-brand-50 hover:bg-brand-100 transition"
               >
                 {avatarPreview
-                  ? <img src={avatarPreview} className="w-full h-full object-cover" alt="avatar"/>
+                  ? <PreviewImage src={avatarPreview} className="w-full h-full object-cover" alt="avatar"/>
                   : <div className="flex flex-col items-center gap-1"><Camera size={24} className="text-brand-400"/><span className="text-xs text-brand-500">صورة</span></div>
                 }
               </div>
@@ -219,7 +222,7 @@ function Form() {
               <label className="label">صورة البطاقة — الوجه الأمامي <span className="text-red-500">*</span></label>
               <div onClick={() => idFrontRef.current?.click()} className="border-2 border-dashed border-gray-300 rounded-2xl h-28 flex items-center justify-center cursor-pointer overflow-hidden bg-gray-50 hover:border-brand-400 transition">
                 {idFrontPreview
-                  ? <img src={idFrontPreview} className="h-full object-contain" alt="id-front"/>
+                  ? <PreviewImage src={idFrontPreview} className="h-full object-contain" alt="id-front"/>
                   : <div className="flex flex-col items-center gap-2 text-gray-400"><Upload size={22}/><span className="text-xs">اضغط لإضافة صورة</span></div>
                 }
               </div>
@@ -231,7 +234,7 @@ function Form() {
               <label className="label">صورة البطاقة — الوجه الخلفي <span className="text-red-500">*</span></label>
               <div onClick={() => idBackRef.current?.click()} className="border-2 border-dashed border-gray-300 rounded-2xl h-28 flex items-center justify-center cursor-pointer overflow-hidden bg-gray-50 hover:border-brand-400 transition">
                 {idBackPreview
-                  ? <img src={idBackPreview} className="h-full object-contain" alt="id-back"/>
+                  ? <PreviewImage src={idBackPreview} className="h-full object-contain" alt="id-back"/>
                   : <div className="flex flex-col items-center gap-2 text-gray-400"><Upload size={22}/><span className="text-xs">اضغط لإضافة صورة</span></div>
                 }
               </div>
@@ -258,7 +261,7 @@ function Form() {
 
               {avatarPreview && (
                 <div className="flex justify-center">
-                  <img src={avatarPreview} className="w-20 h-20 rounded-full object-cover border-4 border-brand-200" alt="avatar"/>
+                  <PreviewImage src={avatarPreview} className="w-20 h-20 rounded-full object-cover border-4 border-brand-200" alt="avatar"/>
                 </div>
               )}
 

@@ -1,5 +1,5 @@
-'use client'
 import { useRouter } from 'next/navigation'
+
 import { Check, ChevronRight, Zap } from 'lucide-react'
 
 const PLANS = [

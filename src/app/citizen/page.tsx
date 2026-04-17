@@ -1,13 +1,15 @@
-'use client'
 import { useState, useEffect } from 'react'
+
 import { useRouter } from 'next/navigation'
-import { Search, Bell } from 'lucide-react'
-import { getCategories, searchProviders } from '@/lib/api'
-import type { Category, Provider } from '@/types'
 import Link from 'next/link'
+
+import { Search, Bell } from 'lucide-react'
+
 import { CitizenNav } from '@/components/shared/BottomNav'
+import { getCategories, searchProviders } from '@/lib/api'
 import { ProviderCard } from '@/components/citizen/ProviderCard'
 import { SkeletonCard, SkeletonGrid } from '@/components/shared/Loaders'
+import type { Category, Provider } from '@/types'
 
 export default function CitizenHome() {
   const router = useRouter()

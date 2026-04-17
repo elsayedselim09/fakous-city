@@ -1,12 +1,15 @@
-'use client'
 import { useEffect, useRef, useState } from 'react'
+
 import { useRouter } from 'next/navigation'
+
+import { LogOut, User, Phone, MapPin, Camera, ShieldCheck, Shield, Edit2, Save, X, Upload, Loader2 } from 'lucide-react'
+
+import { CitizenNav } from '@/components/shared/BottomNav'
 import { createClient } from '@/lib/supabase/client'
 import { uploadAvatar, uploadIdCard } from '@/lib/storage'
-import type { Profile } from '@/types'
-import { LogOut, User, Phone, MapPin, Camera, ShieldCheck, Shield, Edit2, Save, X, Upload, Loader2 } from 'lucide-react'
-import { CitizenNav } from '@/components/shared/BottomNav'
 import { VILLAGES } from '@/utils'
+import type { Profile } from '@/types'
+import { PreviewImage } from '@/components/ui/PreviewImage'
 
 export default function ProfilePage() {
   const router = useRouter()
@@ -79,7 +82,7 @@ export default function ProfilePage() {
         <div className="flex flex-col items-center relative">
           <div className="relative mb-3">
             <div className="w-24 h-24 rounded-full border-4 border-white/30 overflow-hidden flex items-center justify-center bg-white/20 text-white text-3xl font-bold">
-              {avatar ? <img src={avatar} className="w-full h-full object-cover" alt="avatar"/> : initials}
+              {avatar ? <PreviewImage src={avatar} className="w-full h-full object-cover" alt="avatar"/> : initials}
             </div>
             {editing && (
               <button onClick={() => avatarRef.current?.click()} className="absolute bottom-0 right-0 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg">
@@ -176,7 +179,7 @@ export default function ProfilePage() {
               <p className="text-xs text-gray-500 mb-1.5">البطاقة — أمامية</p>
               <div onClick={() => editing && idFrontRef.current?.click()} className={`border-2 border-dashed rounded-2xl h-20 flex items-center justify-center overflow-hidden ${editing?'cursor-pointer hover:border-brand-400':''} ${profile.id_front_url||idFrontPreview?'border-green-300 bg-green-50':'border-gray-200 bg-gray-50'}`}>
                 {idFrontPreview || profile.id_front_url
-                  ? <img src={idFrontPreview||profile.id_front_url} className="h-full object-contain" alt="id-front"/>
+                  ? <PreviewImage src={idFrontPreview||profile.id_front_url||''} className="h-full object-contain" alt="id-front"/>
                   : <div className="flex flex-col items-center gap-1 text-gray-400">{editing?<><Upload size={16}/><span className="text-xs">رفع</span></>:<span className="text-xs">غير مرفوعة</span>}</div>
                 }
               </div>
@@ -187,7 +190,7 @@ export default function ProfilePage() {
               <p className="text-xs text-gray-500 mb-1.5">البطاقة — خلفية</p>
               <div onClick={() => editing && idBackRef.current?.click()} className={`border-2 border-dashed rounded-2xl h-20 flex items-center justify-center overflow-hidden ${editing?'cursor-pointer hover:border-brand-400':''} ${profile.id_back_url||idBackPreview?'border-green-300 bg-green-50':'border-gray-200 bg-gray-50'}`}>
                 {idBackPreview || profile.id_back_url
-                  ? <img src={idBackPreview||profile.id_back_url} className="h-full object-contain" alt="id-back"/>
+                  ? <PreviewImage src={idBackPreview||profile.id_back_url||''} className="h-full object-contain" alt="id-back"/>
                   : <div className="flex flex-col items-center gap-1 text-gray-400">{editing?<><Upload size={16}/><span className="text-xs">رفع</span></>:<span className="text-xs">غير مرفوعة</span>}</div>
                 }
               </div>

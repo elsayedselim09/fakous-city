@@ -1,12 +1,15 @@
-'use client'
 import { useState, useEffect, useRef } from 'react'
+
 import { useRouter } from 'next/navigation'
+
+import { Loader2, Check, Camera, Upload, ShieldCheck, Video, Image as ImageIcon, X } from 'lucide-react'
+
 import { createClient } from '@/lib/supabase/client'
 import { createProvider, getCategories } from '@/lib/api'
-import { uploadAvatar, uploadIdCard, uploadIntroVideo, uploadProviderImage } from '@/lib/storage'
-import type { Category } from '@/types'
-import { Loader2, Check, Camera, Upload, ShieldCheck, Video, Image as ImageIcon, X } from 'lucide-react'
+import { uploadAvatar, uploadIdCard } from '@/lib/storage'
 import { VILLAGES } from '@/utils'
+import type { Category } from '@/types'
+import { PreviewImage } from '@/components/ui/PreviewImage'
 
 const STEPS = ['المهنة','البيانات','الهوية','الميديا']
 
@@ -170,7 +173,7 @@ export default function SetupPage() {
             {/* صورة بروفايل المزود */}
             <div className="flex flex-col items-center gap-2">
               <div onClick={() => avatarRef.current?.click()} className="w-24 h-24 rounded-full border-2 border-dashed border-brand-300 flex items-center justify-center cursor-pointer overflow-hidden bg-brand-50">
-                {avatarPreview ? <img src={avatarPreview} className="w-full h-full object-cover" alt="avatar"/> : <div className="flex flex-col items-center gap-1"><Camera size={22} className="text-brand-400"/><span className="text-xs text-brand-500">صورة</span></div>}
+                {avatarPreview ? <PreviewImage src={avatarPreview} className="w-full h-full object-cover" alt="avatar"/> : <div className="flex flex-col items-center gap-1"><Camera size={22} className="text-brand-400"/><span className="text-xs text-brand-500">صورة</span></div>}
               </div>
               <p className="text-xs text-gray-400">صورة واضحة لصاحب العمل</p>
               <input ref={avatarRef} type="file" accept="image/*" className="hidden" onChange={e => { if(e.target.files?.[0]){setAvatarFile(e.target.files[0]);preview(e.target.files[0],setAvatarPreview)} }}/>
@@ -218,14 +221,14 @@ export default function SetupPage() {
             <div>
               <label className="label">البطاقة — الوجه الأمامي <span className="text-red-500">*</span></label>
               <div onClick={() => idFrontRef.current?.click()} className="border-2 border-dashed border-gray-300 rounded-2xl h-28 flex items-center justify-center cursor-pointer overflow-hidden bg-gray-50 hover:border-brand-400 transition">
-                {idFrontPreview ? <img src={idFrontPreview} className="h-full object-contain" alt="front"/> : <div className="flex flex-col items-center gap-2 text-gray-400"><Upload size={22}/><span className="text-xs">اضغط لإضافة صورة</span></div>}
+                {idFrontPreview ? <PreviewImage src={idFrontPreview} className="h-full object-contain" alt="front"/> : <div className="flex flex-col items-center gap-2 text-gray-400"><Upload size={22}/><span className="text-xs">اضغط لإضافة صورة</span></div>}
               </div>
               <input ref={idFrontRef} type="file" accept="image/*" className="hidden" onChange={e=>{if(e.target.files?.[0]){setIdFrontFile(e.target.files[0]);preview(e.target.files[0],setIdFrontPreview)}}}/>
             </div>
             <div>
               <label className="label">البطاقة — الوجه الخلفي <span className="text-red-500">*</span></label>
               <div onClick={() => idBackRef.current?.click()} className="border-2 border-dashed border-gray-300 rounded-2xl h-28 flex items-center justify-center cursor-pointer overflow-hidden bg-gray-50 hover:border-brand-400 transition">
-                {idBackPreview ? <img src={idBackPreview} className="h-full object-contain" alt="back"/> : <div className="flex flex-col items-center gap-2 text-gray-400"><Upload size={22}/><span className="text-xs">اضغط لإضافة صورة</span></div>}
+                {idBackPreview ? <PreviewImage src={idBackPreview} className="h-full object-contain" alt="back"/> : <div className="flex flex-col items-center gap-2 text-gray-400"><Upload size={22}/><span className="text-xs">اضغط لإضافة صورة</span></div>}
               </div>
               <input ref={idBackRef} type="file" accept="image/*" className="hidden" onChange={e=>{if(e.target.files?.[0]){setIdBackFile(e.target.files[0]);preview(e.target.files[0],setIdBackPreview)}}}/>
             </div>
@@ -266,7 +269,7 @@ export default function SetupPage() {
                 <div className="grid grid-cols-3 gap-2">
                   {imagePreviews.map((p,i) => (
                     <div key={i} className="relative aspect-square rounded-xl overflow-hidden bg-gray-100">
-                      <img src={p} className="w-full h-full object-cover" alt={`img-${i}`}/>
+                      <PreviewImage src={p} className="w-full h-full object-cover" alt={`img-${i}`}/>
                       <button onClick={() => { setImagePreviews(prev => prev.filter((_,j)=>j!==i)); setImageFiles(prev => prev.filter((_,j)=>j!==i)) }} className="absolute top-1 right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center"><X size={10} className="text-white"/></button>
                     </div>
                   ))}

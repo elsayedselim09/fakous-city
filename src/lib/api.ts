@@ -1,5 +1,6 @@
-import { createClient } from './supabase/client'
 import type { SearchFilters, Provider, Booking, Review } from '@/types'
+
+import { createClient } from './supabase/client'
 
 export async function getCategories() {
   const sb = createClient()

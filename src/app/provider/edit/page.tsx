@@ -1,12 +1,15 @@
-'use client'
 import { useEffect, useRef, useState } from 'react'
+
 import { useRouter } from 'next/navigation'
+
+import { Loader2, ChevronRight, Save, Camera, Upload, Video, ShieldCheck, Image as ImageIcon, X, Check } from 'lucide-react'
+
 import { createClient } from '@/lib/supabase/client'
 import { getProviderByUserId, updateProvider } from '@/lib/api'
 import { uploadAvatar, uploadIdCard, uploadIntroVideo, uploadProviderImage } from '@/lib/storage'
-import type { Provider } from '@/types'
-import { Loader2, ChevronRight, Save, Camera, Upload, Video, ShieldCheck, Image as ImageIcon, X, Check } from 'lucide-react'
 import { VILLAGES } from '@/utils'
+import type { Provider } from '@/types'
+import { PreviewImage } from '@/components/ui/PreviewImage'
 
 type Tab = 'basic' | 'identity' | 'media'
 
@@ -134,7 +137,7 @@ export default function EditPage() {
             <div className="flex flex-col items-center gap-2">
               <div className="relative">
                 <div onClick={() => avatarRef.current?.click()} className="w-24 h-24 rounded-full border-2 border-brand-300 overflow-hidden flex items-center justify-center cursor-pointer bg-brand-50">
-                  {currentAvatar ? <img src={currentAvatar} className="w-full h-full object-cover" alt="avatar" /> : <Camera size={24} className="text-brand-400" />}
+                  {currentAvatar ? <PreviewImage src={currentAvatar} className="w-full h-full object-cover" alt="avatar" /> : <Camera size={24} className="text-brand-400" />}
                 </div>
                 <div className="absolute bottom-0 right-0 w-7 h-7 bg-brand-600 rounded-full flex items-center justify-center pointer-events-none"><Camera size={13} className="text-white" /></div>
               </div>
@@ -181,7 +184,7 @@ export default function EditPage() {
             <div>
               <label className="label">البطاقة — الوجه الأمامي</label>
               <div onClick={() => idFrontRef.current?.click()} className={`border-2 border-dashed rounded-2xl h-28 flex items-center justify-center cursor-pointer overflow-hidden transition ${idFrontPreview || provider.id_front_url ? 'border-green-400 bg-green-50' : 'border-gray-300 bg-gray-50 hover:border-brand-400'}`}>
-                {idFrontPreview || provider.id_front_url ? <img src={idFrontPreview || provider.id_front_url} className="h-full object-contain" alt="id-front" /> : <div className="flex flex-col items-center gap-2 text-gray-400"><Upload size={22} /><span className="text-xs">اضغط لرفع صورة</span></div>}
+                {idFrontPreview || provider.id_front_url ? <PreviewImage src={idFrontPreview || provider.id_front_url || ''} className="h-full object-contain" alt="id-front" /> : <div className="flex flex-col items-center gap-2 text-gray-400"><Upload size={22} /><span className="text-xs">اضغط لرفع صورة</span></div>}
               </div>
               <input ref={idFrontRef} type="file" accept="image/*" className="hidden" onChange={e => { if (e.target.files?.[0]) { setIdFrontFile(e.target.files[0]); previewFile(e.target.files[0], setIdFrontPreview) } }} />
             </div>
@@ -190,7 +193,7 @@ export default function EditPage() {
             <div>
               <label className="label">البطاقة — الوجه الخلفي</label>
               <div onClick={() => idBackRef.current?.click()} className={`border-2 border-dashed rounded-2xl h-28 flex items-center justify-center cursor-pointer overflow-hidden transition ${idBackPreview || provider.id_back_url ? 'border-green-400 bg-green-50' : 'border-gray-300 bg-gray-50 hover:border-brand-400'}`}>
-                {idBackPreview || provider.id_back_url ? <img src={idBackPreview || provider.id_back_url} className="h-full object-contain" alt="id-back" /> : <div className="flex flex-col items-center gap-2 text-gray-400"><Upload size={22} /><span className="text-xs">اضغط لرفع صورة</span></div>}
+                {idBackPreview || provider.id_back_url ? <PreviewImage src={idBackPreview || provider.id_back_url || ''} className="h-full object-contain" alt="id-back" /> : <div className="flex flex-col items-center gap-2 text-gray-400"><Upload size={22} /><span className="text-xs">اضغط لرفع صورة</span></div>}
               </div>
               <input ref={idBackRef} type="file" accept="image/*" className="hidden" onChange={e => { if (e.target.files?.[0]) { setIdBackFile(e.target.files[0]); previewFile(e.target.files[0], setIdBackPreview) } }} />
             </div>
@@ -215,14 +218,14 @@ export default function EditPage() {
               <div className="flex items-center gap-2"><ImageIcon size={18} className="text-brand-600" /><h3 className="font-bold text-gray-900 text-sm">صور العمل</h3><span className="text-xs text-gray-400">حتى 6 صور</span></div>
               {(provider.images || []).length > 0 && (
                 <div className="grid grid-cols-3 gap-2">
-                  {(provider.images || []).map((url, i) => <div key={i} className="aspect-square rounded-xl overflow-hidden bg-gray-100"><img src={url} className="w-full h-full object-cover" alt={`img-${i}`} /></div>)}
+                  {(provider.images || []).map((url, i) => <div key={i} className="aspect-square rounded-xl overflow-hidden bg-gray-100"><PreviewImage src={url} className="w-full h-full object-cover" alt={`img-${i}`} /></div>)}
                 </div>
               )}
               {newImagePreviews.length > 0 && (
                 <div className="grid grid-cols-3 gap-2">
                   {newImagePreviews.map((p, i) => (
                     <div key={i} className="relative aspect-square rounded-xl overflow-hidden bg-gray-100">
-                      <img src={p} className="w-full h-full object-cover" alt={`new-${i}`} />
+                      <PreviewImage src={p} className="w-full h-full object-cover" alt={`new-${i}`} />
                       <button onClick={() => { setNewImagePreviews(prev => prev.filter((_, j) => j !== i)); setNewImageFiles(prev => prev.filter((_, j) => j !== i)) }} className="absolute top-1 right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center"><X size={10} className="text-white" /></button>
                     </div>
                   ))}

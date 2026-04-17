@@ -1,13 +1,15 @@
-'use client'
 import { useEffect, useState } from 'react'
+
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+
+import { CalendarDays, Loader2 } from 'lucide-react'
+
+import { CitizenNav } from '@/components/shared/BottomNav'
 import { createClient } from '@/lib/supabase/client'
 import { getCitizenBookings } from '@/lib/api'
-import type { Booking } from '@/types'
-import { CalendarDays, Loader2 } from 'lucide-react'
-import Link from 'next/link'
-import { CitizenNav } from '@/components/shared/BottomNav'
 import { STATUS_LABELS, formatDate, formatTime } from '@/utils'
+import type { Booking } from '@/types'
 
 export default function BookingsPage() {
   const router = useRouter()

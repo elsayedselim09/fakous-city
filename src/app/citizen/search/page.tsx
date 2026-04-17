@@ -1,13 +1,15 @@
-'use client'
 import { useState, useEffect, useCallback, Suspense } from 'react'
+
 import { useSearchParams } from 'next/navigation'
-import { searchProviders, getCategories } from '@/lib/api'
-import type { Provider, Category, SearchFilters } from '@/types'
+
 import { Search, SlidersHorizontal, X, Loader2 } from 'lucide-react'
+
 import { CitizenNav } from '@/components/shared/BottomNav'
 import { ProviderCard } from '@/components/citizen/ProviderCard'
+import { searchProviders, getCategories } from '@/lib/api'
 import { SkeletonCard } from '@/components/shared/Loaders'
 import { VILLAGES } from '@/utils'
+import type { Provider, Category, SearchFilters } from '@/types'
 
 function SearchContent() {
   const sp = useSearchParams()
@@ -36,6 +38,7 @@ function SearchContent() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, categorySlug, village, sortBy, page])
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { doSearch(true) }, [categorySlug, village, sortBy])
 
   return (

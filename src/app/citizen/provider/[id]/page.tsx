@@ -1,11 +1,13 @@
-'use client'
 import { useEffect, useState } from 'react'
+
 import { useParams, useRouter } from 'next/navigation'
-import { getProviderById, getProviderReviews, createBooking } from '@/lib/api'
-import type { Provider, Review } from '@/types'
+
 import { MapPin, Clock, ChevronRight, Loader2, BadgeCheck } from 'lucide-react'
-import { openWhatsapp, formatTime } from '@/utils'
+
+import { getProviderById, getProviderReviews, createBooking } from '@/lib/api'
+import { openWhatsapp } from '@/utils'
 import { RatingDisplay, StarRating } from '@/components/shared/StarRating'
+import type { Provider, Review } from '@/types'
 
 const WaIcon = () => (
   <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">

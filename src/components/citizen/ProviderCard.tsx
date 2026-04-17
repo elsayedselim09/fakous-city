@@ -1,5 +1,7 @@
 import Link from 'next/link'
+
 import { Star, ChevronLeft, BadgeCheck } from 'lucide-react'
+
 import type { Provider } from '@/types'
 
 export function ProviderCard({ provider }: { provider: Provider }) {

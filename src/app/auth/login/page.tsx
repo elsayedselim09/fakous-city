@@ -1,9 +1,11 @@
-'use client'
 import { useState } from 'react'
+
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { createClient } from '@/lib/supabase/client'
+
 import { Eye, EyeOff, Loader2, MapPin } from 'lucide-react'
+
+import { createClient } from '@/lib/supabase/client'
 
 export default function LoginPage() {
   const router = useRouter()
